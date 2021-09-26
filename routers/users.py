@@ -23,7 +23,7 @@ async def is_user_can_buy(can_buy_request: CanBuyRequest):
         can_buy_request.user_budget,
         can_buy_request.actual_price_with_promo
     )
-    if not user_can_buy:
+    if user_can_buy is None:
         raise HTTPException(status_code=404, detail="User or book can not found")
     if user_can_buy:
         return {"message": "Can buy {}".format(can_buy_request.book_name)}
