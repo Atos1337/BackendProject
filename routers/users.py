@@ -35,14 +35,16 @@ async def is_user_can_buy(can_buy_request: CanBuyRequest):
 async def users_book_intersect(user_name1: str = Query(..., alias="user-name1", regex="^[a-zA-Z]+$"),
                                user_name2: str = Query(..., alias="user-name2", regex="^[a-zA-Z]+$")):
     books_intersect = us.intersect_users_books(user_name1, user_name2)
-    if not books_intersect:
+    if books_intersect is None:
         raise HTTPException(status_code=404, detail="One of users not found")
+    return books_intersect
 
 
 @router.get("/user/buyable_book_intersect")
-async def buyable_book_instersect(buy_user: str = Query(..., alias="buy-user", regex="^[a-zA-Z]+$"),
+async def buyable_books_intersect(buy_user: str = Query(..., alias="buy-user", regex="^[a-zA-Z]+$"),
                                   other_user: str = Query(..., alias="other-user", regex="^[a-zA-Z]+$"),
                                   user_budget: float = Query(..., alias="user-budget", gt=0)):
-    res = buyable_book_instersect(buy_user, other_user, user_budget)
-    if not res:
+    res = us.buyable_books_intersect(buy_user, other_user, user_budget)
+    if res is None:
         raise HTTPException(status_code=404, detail="One of users not found")
+    return res
