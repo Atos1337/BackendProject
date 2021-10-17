@@ -1,13 +1,8 @@
-from fastapi import APIRouter, Query, HTTPException, Depends
+from fastapi import APIRouter, Query, HTTPException
 from models.requests.can_buy_request import CanBuyRequest
-from database.in_memory_db import InMemoryDatabase
-from service.user_service import UserService
-from service.book_service import BookService
+from dependencies import us
 
 router = APIRouter()
-in_memory_db = InMemoryDatabase()
-bs = BookService(in_memory_db)
-us = UserService(in_memory_db, bs)
 
 
 @router.get("/hello")

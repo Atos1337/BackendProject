@@ -21,3 +21,16 @@ class InMemoryDatabase(Database):
             "Сеньор-Помидор"
         }
     }
+
+    author_books: Dict[str, Set[str]] = {
+        "Александр Дюма": {
+            "А", "Б", "В", "Г"
+        }
+    }
+
+    books_rating: Dict[str, float] = {
+        "А": 5,
+        "Б": 10,
+        "В": 9,
+        "Г": 8
+    }
